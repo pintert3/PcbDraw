@@ -21,9 +21,9 @@ from .plot import find_data_file, get_global_datapaths
 
 PKG_BASE = os.path.dirname(__file__)
 
-class PcbDrawInlineLexer(mistune.InlineLexer): # type: ignore
+class PcbDrawInlineLexer(mistune.inline_parser.InlineParser): # type: ignore
     def __init__(self, renderer: Any, **kwargs: Any) -> None:
-        super(PcbDrawInlineLexer, self).__init__(renderer, rules=None, **kwargs)
+        super(PcbDrawInlineLexer, self).__init__(renderer, **kwargs)
         self.enable_pcbdraw()
 
     def enable_pcbdraw(self) -> None:
@@ -274,7 +274,7 @@ def populate(input: str, output: str, board: Optional[str], imgname: Optional[st
         sys.exit(f"Missing parameter {e} either in template file of source header")
 
     if type == "html":
-        renderer = Renderer(mistune.Renderer) # type: ignore
+        renderer = Renderer(mistune.renderers.HTMLRenderer) # type: ignore
         outputfile = "index.html"
         try:
             assert template is not None
