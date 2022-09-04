@@ -12,10 +12,10 @@
     :licence: WTFPL 2
 """
 
-from mistune import Renderer  # type: ignore
+from mistune.renderers import HTMLRenderer  # type: ignore
 
 
-class MdRenderer(Renderer):
+class MdRenderer(HTMLRenderer):
     def get_block(text):
         type = text[0]
         p = text.find(':')
